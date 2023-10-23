@@ -110,18 +110,29 @@ body {
   bottom: 6%;
   /* left: 0%; */
   height: 8%;
-  width: 65%;
+  width: 75%;
   background-color: var(--prColor);
   animation: disolve 3s ease-in-out infinite;
 }
 @keyframes disolve {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.3;
     transform: scale(0.7);
+    background: radial-gradient(
+      ellipse at center,
+      var(--prColor) 35%,
+
+      rgba(0, 212, 255, 0) 70%
+    );
   }
   50% {
-    opacity: 0.35;
+    opacity: 0.5;
     transform: scale(0.8);
+    background: radial-gradient(
+      ellipse at center,
+      var(--prColor) 35%,
+      rgba(0, 212, 255, 0) 70%
+    );
   }
 }

@@ -121,7 +121,7 @@ body {
     transform: scale(0.7);
     background: radial-gradient(
       ellipse at center,
-      var(--prColor) 30%,
+      var(--prColor) 35%,
 
       rgba(0, 212, 255, 0) 70%
     );
@@ -131,7 +131,7 @@ body {
     transform: scale(0.8);
     background: radial-gradient(
       ellipse at center,
-      var(--prColor) 30%,
+      var(--prColor) 35%,
       rgba(0, 212, 255, 0) 70%
     );
   }

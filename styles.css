@@ -6,6 +6,7 @@
 }
 
 body {
+  text-align: center;
   color: var(--prColor);
   display: flex;
   align-items: center;
@@ -19,12 +20,15 @@ body {
 
 #floatBoxContainer {
   background-color: var(--bgColor);
-  height: 450px;
-  width: 320px;
+  aspect-ratio: 5/7;
+  height: auto;
+  width: 70vw;
+  max-width: 350px;
   border: 5px solid var(--prColor);
   border-radius: 10px;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -98,4 +102,26 @@ body {
   width: 100%;
   height: 100%;
   animation: spin 2.3s ease-in-out infinite;
+}
+
+#shadow {
+  position: absolute;
+  border-radius: 50%;
+  bottom: 6%;
+  /* left: 0%; */
+  height: 8%;
+  width: 65%;
+  background-color: var(--prColor);
+  animation: disolve 3s ease-in-out infinite;
+}
+@keyframes disolve {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
 }

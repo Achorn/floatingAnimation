@@ -1,14 +1,15 @@
 :root {
-  --prColor: rgb(44, 54, 24);
-  --bgColor: rgb(179, 188, 172);
-  /* --prColor: rgb(44, 25, 34); */
-  /* --bgColor: rgb(255, 231, 235); */
+  /* --prColor: rgb(44, 54, 24); */
+  /* --bgColor: rgb(179, 188, 172); */
+  --prColor: rgb(44, 25, 34);
+  --bgColor: rgb(255, 231, 235);
 }
 
 * {
   box-sizing: border-box;
 }
 body {
+  background: rgb(220, 189, 220);
   margin: 0;
   text-align: center;
   color: var(--prColor);

@@ -1,5 +1,5 @@
-let bottleImg = createCurserImg("/assets/imgs/bottle-trans.png");
-let bookImg = createCurserImg("/assets/imgs/book.png");
+let bottleImg = createCurserImg("./assets/imgs/bottle-trans.png");
+let bookImg = createCurserImg("./assets/imgs/book.png");
 
 function createCurserImg(asset) {
   let img = document.createElement("img");

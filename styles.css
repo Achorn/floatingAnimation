@@ -5,7 +5,11 @@
   /* --bgColor: rgb(255, 231, 235); */
 }
 
+* {
+  box-sizing: border-box;
+}
 body {
+  margin: 0;
   text-align: center;
   color: var(--prColor);
   display: flex;
@@ -19,12 +23,12 @@ body {
 }
 
 #floatBoxContainer {
-  background-color: var(--bgColor);
+  /* background-color: var(--bgColor); */
   aspect-ratio: 5/7;
   height: auto;
   width: 70vw;
   max-width: 350px;
-  border: 5px solid var(--prColor);
+  /* border: 5px solid var(--prColor); */
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -114,6 +118,7 @@ body {
   background-color: var(--prColor);
   animation: disolve 3s ease-in-out infinite;
 }
+
 @keyframes disolve {
   0%,
   100% {
@@ -135,4 +140,24 @@ body {
       rgba(0, 212, 255, 0) 70%
     );
   }
+}
+
+.curser-img {
+  position: absolute;
+  pointer-events: none;
+  height: 150px;
+  width: auto;
+  display: none;
+}
+
+.selected-cursor-img {
+  display: inline;
+}
+
+button {
+  border: 2px solid var(--prColor);
+  background: var(--bgColor);
+  padding: 10px;
+  font-weight: bold;
+  color: var(--prColor);
 }

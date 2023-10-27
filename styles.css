@@ -1,11 +1,16 @@
 :root {
-  --prColor: rgb(44, 54, 24);
-  --bgColor: rgb(179, 188, 172);
-  /* --prColor: rgb(44, 25, 34); */
-  /* --bgColor: rgb(255, 231, 235); */
+  /* --prColor: rgb(44, 54, 24); */
+  /* --bgColor: rgb(179, 188, 172); */
+  --prColor: rgb(44, 25, 34);
+  --bgColor: rgb(255, 231, 235);
 }
 
+* {
+  box-sizing: border-box;
+}
 body {
+  background: rgb(220, 189, 220);
+  margin: 0;
   text-align: center;
   color: var(--prColor);
   display: flex;
@@ -19,12 +24,12 @@ body {
 }
 
 #floatBoxContainer {
-  background-color: var(--bgColor);
+  /* background-color: var(--bgColor); */
   aspect-ratio: 5/7;
   height: auto;
   width: 70vw;
   max-width: 350px;
-  border: 5px solid var(--prColor);
+  /* border: 5px solid var(--prColor); */
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -88,7 +93,10 @@ body {
     transform: translateY(-10%);
   }
 }
-
+#toadImg {
+  width: auto;
+  height: 100%;
+}
 #toadSvg {
   width: auto;
   height: 100%;
@@ -114,6 +122,7 @@ body {
   background-color: var(--prColor);
   animation: disolve 3s ease-in-out infinite;
 }
+
 @keyframes disolve {
   0%,
   100% {
@@ -121,8 +130,7 @@ body {
     transform: scale(0.7);
     background: radial-gradient(
       ellipse at center,
-      var(--prColor) 35%,
-
+      var(--prColor) 60%,
       rgba(0, 212, 255, 0) 70%
     );
   }
@@ -131,8 +139,32 @@ body {
     transform: scale(0.8);
     background: radial-gradient(
       ellipse at center,
-      var(--prColor) 35%,
+      var(--prColor) 60%,
       rgba(0, 212, 255, 0) 70%
     );
   }
+}
+
+.curser-img {
+  position: absolute;
+  pointer-events: none;
+  height: 110px;
+  width: auto;
+  display: none;
+}
+
+.selected-cursor-img {
+  display: inline;
+}
+#btn-holder {
+  padding: 10px;
+  /* background: red; */
+}
+
+button {
+  border: 2px solid var(--prColor);
+  background: var(--bgColor);
+  padding: 10px;
+  font-weight: bold;
+  color: var(--prColor);
 }

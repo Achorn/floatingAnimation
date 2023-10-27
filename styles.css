@@ -92,7 +92,10 @@ body {
     transform: translateY(-10%);
   }
 }
-
+#toadImg {
+  width: auto;
+  height: 100%;
+}
 #toadSvg {
   width: auto;
   height: 100%;
@@ -126,8 +129,7 @@ body {
     transform: scale(0.7);
     background: radial-gradient(
       ellipse at center,
-      var(--prColor) 35%,
-
+      var(--prColor) 60%,
       rgba(0, 212, 255, 0) 70%
     );
   }
@@ -136,7 +138,7 @@ body {
     transform: scale(0.8);
     background: radial-gradient(
       ellipse at center,
-      var(--prColor) 35%,
+      var(--prColor) 60%,
       rgba(0, 212, 255, 0) 70%
     );
   }
@@ -145,13 +147,17 @@ body {
 .curser-img {
   position: absolute;
   pointer-events: none;
-  height: 150px;
+  height: 110px;
   width: auto;
   display: none;
 }
 
 .selected-cursor-img {
   display: inline;
+}
+#btn-holder {
+  padding: 10px;
+  /* background: red; */
 }
 
 button {

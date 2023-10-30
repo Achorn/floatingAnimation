@@ -1,32 +1,32 @@
-let bottleImg = createCurserImg("./assets/imgs/bottle-trans.png");
-let bookImg = createCurserImg("./assets/imgs/book.png");
+// let bottleImg = createCurserImg("./assets/imgs/bottle-trans.png");
+// let bookImg = createCurserImg("./assets/imgs/book.png");
 
-function createCurserImg(asset) {
-  let img = document.createElement("img");
-  img.src = asset;
-  img.classList.add("curser-img");
-  document.body.appendChild(img);
-  return img;
-}
+// function createCurserImg(asset) {
+//   let img = document.createElement("img");
+//   img.src = asset;
+//   img.classList.add("curser-img");
+//   return img;
+// }
+
+let cursorFollower = document.createElement("div");
+cursorFollower.classList.add("cursor-img-container");
+document.body.appendChild(cursorFollower);
 
 addEventListener("mousemove", (event) => {
   let x = event.pageX;
   let y = event.pageY;
-  let selectedImg = document.getElementsByClassName("selected-cursor-img")[0];
-  if (selectedImg) {
-    selectedImg.style.top = y + -20 + "px";
-    selectedImg.style.left = x + -20 + "px";
-  }
+  cursorFollower.style.top = y + -20 + "px";
+  cursorFollower.style.left = x + -20 + "px";
 });
 
 let waterBtn = document.getElementById("waterBtn");
 waterBtn.addEventListener("click", (e) => {
-  selectNewCursorImg(bottleImg, e);
+  selectNewCursorImg(nalgeneCursor.img, e);
 });
 
 let readBtn = document.getElementById("readBtn");
 readBtn.addEventListener("click", (e) => {
-  selectNewCursorImg(bookImg, e);
+  selectNewCursorImg(bookCursor.img, e);
 });
 
 let cancelBtn = document.getElementById("cancelBtn");
@@ -35,21 +35,11 @@ cancelBtn.addEventListener("click", removeSelectedCursorImg);
 let selectedCusorImg;
 function selectNewCursorImg(newImg, e) {
   removeSelectedCursorImg();
-  document.body.style.cursor = "none";
-  selectedCusorImg = newImg;
-  selectedCusorImg.classList.add("selected-cursor-img");
-
-  let x = e.pageX;
-  let y = e.pageY;
-  selectedCusorImg.style.top = y + -20 + "px";
-  selectedCusorImg.style.left = x + -20 + "px";
+  cursorFollower.appendChild(newImg);
 }
 
 function removeSelectedCursorImg() {
-  document.body.style.cursor = null;
-  if (selectedCusorImg) {
-    selectedCusorImg.classList.remove("selected-cursor-img");
-  }
+  cursorFollower.innerHTML = "";
 }
 
 let toadHitBox = document.getElementById("toadSvg");
@@ -57,3 +47,26 @@ let toadHitBox = document.getElementById("toadSvg");
 toadHitBox.addEventListener("click", () => {
   removeSelectedCursorImg();
 });
+
+class CursorImg {
+  constructor(src) {
+    let newImg = document.createElement("img");
+    newImg.src = src;
+    newImg.classList.add("curser-img");
+    this._img = newImg;
+  }
+  get img() {
+    return this._img;
+  }
+}
+
+let nalgeneCursor = new CursorImg("./assets/imgs/bottle-trans.png");
+let bookCursor = new CursorImg("./assets/imgs/book.png");
+
+class ToadGame {
+  constructor() {
+    console.log("contstructed?");
+  }
+}
+
+new ToadGame();

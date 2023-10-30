@@ -1,59 +1,53 @@
 let bottleImg = createCurserImg("./assets/imgs/bottle-trans.png");
 let bookImg = createCurserImg("./assets/imgs/book.png");
-
 function createCurserImg(asset) {
   let img = document.createElement("img");
   img.src = asset;
   img.classList.add("curser-img");
-  document.body.appendChild(img);
   return img;
 }
 
-addEventListener("mousemove", (event) => {
-  let x = event.pageX;
-  let y = event.pageY;
-  let selectedImg = document.getElementsByClassName("selected-cursor-img")[0];
-  if (selectedImg) {
-    selectedImg.style.top = y + -20 + "px";
-    selectedImg.style.left = x + -20 + "px";
+class CursorFollower {
+  constructor() {
+    let cursorFollower = document.createElement("div");
+    cursorFollower.classList.add("cursor-img-container");
+    document.body.appendChild(cursorFollower);
+    this._cursorFollower = cursorFollower;
+    addEventListener("mousemove", (event) => {
+      let x = event.pageX;
+      let y = event.pageY;
+      cursorFollower.style.top = y + -20 + "px";
+      cursorFollower.style.left = x + -20 + "px";
+    });
   }
-});
+  removeSelectedCursorImg() {
+    this._cursorFollower.innerHTML = "";
+  }
 
-let waterBtn = document.getElementById("waterBtn");
-waterBtn.addEventListener("click", (e) => {
-  selectNewCursorImg(bottleImg, e);
-});
-
-let readBtn = document.getElementById("readBtn");
-readBtn.addEventListener("click", (e) => {
-  selectNewCursorImg(bookImg, e);
-});
-
-let cancelBtn = document.getElementById("cancelBtn");
-cancelBtn.addEventListener("click", removeSelectedCursorImg);
-
-let selectedCusorImg;
-function selectNewCursorImg(newImg, e) {
-  removeSelectedCursorImg();
-  document.body.style.cursor = "none";
-  selectedCusorImg = newImg;
-  selectedCusorImg.classList.add("selected-cursor-img");
-
-  let x = e.pageX;
-  let y = e.pageY;
-  selectedCusorImg.style.top = y + -20 + "px";
-  selectedCusorImg.style.left = x + -20 + "px";
-}
-
-function removeSelectedCursorImg() {
-  document.body.style.cursor = null;
-  if (selectedCusorImg) {
-    selectedCusorImg.classList.remove("selected-cursor-img");
+  selectNewCursorImg(newImg) {
+    this.removeSelectedCursorImg();
+    this._cursorFollower.appendChild(newImg);
   }
 }
+let cursorFollower = new CursorFollower();
 
-let toadHitBox = document.getElementById("toadSvg");
-
-toadHitBox.addEventListener("click", () => {
-  removeSelectedCursorImg();
+document.getElementById("waterBtn").addEventListener("click", () => {
+  cursorFollower.selectNewCursorImg(bottleImg);
 });
+document.getElementById("readBtn").addEventListener("click", () => {
+  cursorFollower.selectNewCursorImg(bookImg);
+});
+document.getElementById("cancelBtn").addEventListener("click", () => {
+  cursorFollower.removeSelectedCursorImg();
+});
+document.getElementById("toadSvg").addEventListener("click", () => {
+  cursorFollower.removeSelectedCursorImg();
+});
+// class ToadGame {
+//   constructor() {
+//     // this._hunger = 100;
+//     // this._education = 100;
+//   // }
+// }
+
+// new ToadGame();

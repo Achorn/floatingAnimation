@@ -145,17 +145,18 @@ body {
   }
 }
 
-.curser-img {
+.cursor-img-container {
   position: absolute;
   pointer-events: none;
   height: 110px;
+  width: 110px;
+}
+.curser-img {
+  pointer-events: none;
+  height: 100%;
   width: auto;
-  display: none;
 }
 
-.selected-cursor-img {
-  display: inline;
-}
 #btn-holder {
   padding: 10px;
   /* background: red; */

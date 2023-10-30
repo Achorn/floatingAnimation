@@ -40,7 +40,7 @@ document.getElementById("readBtn").addEventListener("click", () => {
 document.getElementById("cancelBtn").addEventListener("click", () => {
   cursorFollower.removeSelectedCursorImg();
 });
-document.getElementById("toadImg").addEventListener("click", () => {
+document.getElementById("toadDivWrapper").addEventListener("click", () => {
   cursorFollower.removeSelectedCursorImg();
 });
 class ToadGame {
@@ -58,12 +58,19 @@ class Toad {
     console.log("toad constructor");
     this._toad = document.getElementById("toadImg");
     this.loadToad();
-    this._toad.addEventListener("mouseenter", () => {
-      //show suprise expression
-    });
-    this._toad.addEventListener("mouseleave", () => {
-      //revert to selected state
-    });
+    document
+      .getElementById("toadDivWrapper")
+      .addEventListener("mouseenter", () => {
+        //show suprise expression
+        console.log("in init hover");
+        this.toadonHoverDisplay();
+      });
+    document
+      .getElementById("toadDivWrapper")
+      .addEventListener("mouseleave", () => {
+        //revert to selected state
+        this.toadcurrentStateDisplay();
+      });
   }
 
   loadToad() {
@@ -72,6 +79,19 @@ class Toad {
         resolve(this._toad);
       });
     });
+  }
+
+  toadonHoverDisplay() {
+    console.log("hovered");
+    let hovImg = document.getElementById("toadImgHover");
+    hovImg.style.display = "inline";
+    this._toad.style.display = "none";
+  }
+  toadcurrentStateDisplay() {
+    console.log("left");
+    let hovImg = document.getElementById("toadImgHover");
+    hovImg.style.display = "none";
+    this._toad.style.display = "inline";
   }
   // toad state
 

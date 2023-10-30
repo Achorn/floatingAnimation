@@ -97,13 +97,13 @@ body {
   width: auto;
   height: 100%;
 }
-#toadSvg {
+#toadImgHover {
+  display: none;
   width: auto;
   height: 100%;
-  fill: var(--prColor);
 }
 
-#divWrapper {
+#toadDivWrapper {
   display: flex;
   justify-content: center;
   align-items: center;

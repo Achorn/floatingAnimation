@@ -97,11 +97,11 @@ body {
   width: auto;
   height: 100%;
 }
-#toadSvg {
+/* #toadImg {
   width: auto;
   height: 100%;
   fill: var(--prColor);
-}
+} */
 
 #divWrapper {
   display: flex;

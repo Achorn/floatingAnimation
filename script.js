@@ -40,14 +40,43 @@ document.getElementById("readBtn").addEventListener("click", () => {
 document.getElementById("cancelBtn").addEventListener("click", () => {
   cursorFollower.removeSelectedCursorImg();
 });
-document.getElementById("toadSvg").addEventListener("click", () => {
+document.getElementById("toadImg").addEventListener("click", () => {
   cursorFollower.removeSelectedCursorImg();
 });
-// class ToadGame {
-//   constructor() {
-//     // this._hunger = 100;
-//     // this._education = 100;
-//   // }
-// }
+class ToadGame {
+  constructor() {
+    this._hunger = 100;
+    this._education = 100;
+    this._selectedAction = null;
+  }
+}
 
-// new ToadGame();
+new ToadGame();
+
+class Toad {
+  constructor() {
+    console.log("toad constructor");
+    this._toad = document.getElementById("toadImg");
+    this.loadToad();
+    this._toad.addEventListener("mouseenter", () => {
+      //show suprise expression
+    });
+    this._toad.addEventListener("mouseleave", () => {
+      //revert to selected state
+    });
+  }
+
+  loadToad() {
+    return new Promise((resolve) => {
+      this._toad.addEventListener("load", () => {
+        resolve(this._toad);
+      });
+    });
+  }
+  // toad state
+
+  //takes care of toads state and animations?
+
+  // toad on hover
+}
+let toad = new Toad();

@@ -19,60 +19,61 @@ class CursorFollower {
       cursorFollower.style.top = y + -20 + "px";
       cursorFollower.style.left = x + -20 + "px";
     });
+    this.observers = [];
+
+    document.getElementById("waterBtn").addEventListener("click", () => {
+      this.selectNewCursorImg(bottleImg, "water");
+    });
+    document.getElementById("readBtn").addEventListener("click", () => {
+      this.selectNewCursorImg(bookImg, "book");
+    });
+    document.getElementById("cancelBtn").addEventListener("click", () => {
+      this.removeSelectedCursorImg();
+    });
+    document.getElementById("toadDivWrapper").addEventListener("click", () => {
+      this.removeSelectedCursorImg();
+    });
+  }
+  addObserver(obs) {
+    this.observers.push(obs);
+  }
+  notify(data) {
+    if (this.observers.length > 0) {
+      this.observers.forEach((observer) => observer.update(data));
+    }
   }
   removeSelectedCursorImg() {
     this._cursorFollower.innerHTML = "";
+    this.notify("");
   }
 
-  selectNewCursorImg(newImg) {
+  selectNewCursorImg(newImg, action) {
     this.removeSelectedCursorImg();
     this._cursorFollower.appendChild(newImg);
+    this.notify(action);
   }
 }
-let cursorFollower = new CursorFollower();
-
-document.getElementById("waterBtn").addEventListener("click", () => {
-  cursorFollower.selectNewCursorImg(bottleImg);
-});
-document.getElementById("readBtn").addEventListener("click", () => {
-  cursorFollower.selectNewCursorImg(bookImg);
-});
-document.getElementById("cancelBtn").addEventListener("click", () => {
-  cursorFollower.removeSelectedCursorImg();
-});
-document.getElementById("toadDivWrapper").addEventListener("click", () => {
-  cursorFollower.removeSelectedCursorImg();
-});
-class ToadGame {
-  constructor() {
-    this._hunger = 100;
-    this._education = 100;
-    this._selectedAction = null;
-  }
-}
-
-new ToadGame();
 
 class Toad {
-  constructor() {
-    console.log("toad constructor");
+  constructor(toadState) {
+    this._toadState = toadState;
     this._toad = document.getElementById("toadImg");
     this.loadToad();
     document
       .getElementById("toadDivWrapper")
       .addEventListener("mouseenter", () => {
-        //show suprise expression
-        console.log("in init hover");
         this.toadonHoverDisplay();
       });
     document
       .getElementById("toadDivWrapper")
       .addEventListener("mouseleave", () => {
-        //revert to selected state
         this.toadcurrentStateDisplay();
       });
   }
 
+  get toadState() {
+    return this._toadState;
+  }
   loadToad() {
     return new Promise((resolve) => {
       this._toad.addEventListener("load", () => {
@@ -80,23 +81,40 @@ class Toad {
       });
     });
   }
-
+  interactWithToad(action) {
+    switch (action) {
+      case "water":
+        console.log("watering");
+        break;
+      case "educate":
+        console.log("watering");
+        break;
+      default:
+        console.log("poking");
+    }
+  }
   toadonHoverDisplay() {
-    console.log("hovered");
-    let hovImg = document.getElementById("toadImgHover");
-    hovImg.style.display = "inline";
-    this._toad.style.display = "none";
+    // let hovImg = document.getElementById("toadImgHover");
+    // hovImg.style.display = "inline";
+    // this._toad.style.display = "none";
   }
   toadcurrentStateDisplay() {
-    console.log("left");
-    let hovImg = document.getElementById("toadImgHover");
-    hovImg.style.display = "none";
-    this._toad.style.display = "inline";
+    // let hovImg = document.getElementById("toadImgHover");
+    // hovImg.style.display = "none";
+    // this._toad.style.display = "inline";
   }
-  // toad state
-
-  //takes care of toads state and animations?
-
-  // toad on hover
 }
-let toad = new Toad();
+
+class ToadGame {
+  constructor() {
+    this._toad = new Toad();
+    let cursorFollower = new CursorFollower();
+    cursorFollower.addObserver(this);
+    this.action;
+  }
+  update(action) {
+    this.action = action;
+  }
+}
+
+new ToadGame();

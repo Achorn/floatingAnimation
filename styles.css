@@ -111,6 +111,9 @@ body {
   height: 100%;
   animation: spin 2.3s ease-in-out infinite;
 }
+#toadDivWrapper:hover {
+  cursor: pointer;
+}
 
 #shadow {
   position: absolute;
@@ -168,4 +171,7 @@ button {
   padding: 10px;
   font-weight: bold;
   color: var(--prColor);
+}
+button:hover {
+  cursor: pointer;
 }

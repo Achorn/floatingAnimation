@@ -22,10 +22,10 @@ class CursorImg {
   }
   updateAction(action) {
     switch (action) {
-      case "water":
+      case "health":
         this.selectNewCursorImg(bottleImg);
         break;
-      case "read":
+      case "education":
         this.selectNewCursorImg(bookImg);
         break;
       default:
@@ -57,35 +57,31 @@ class Toad {
   }
 
   interact(action) {
-    console.log(action);
     switch (action) {
-      case "water":
+      case "health":
         this.feedAnimation();
         break;
-      case "read":
+      case "education":
         this.educateAnimation();
         break;
       default:
         break;
     }
   }
-  toadonHoverDisplay() {
-    // let hovImg = document.getElementById("toadImgHover");
-    // hovImg.style.display = "inline";
-    // this._toad.style.display = "none";
-  }
-  toadcurrentStateDisplay() {
-    // let hovImg = document.getElementById("toadImgHover");
-    // hovImg.style.display = "none";
-    // this._toad.style.display = "inline";
-  }
 }
 
 class ToadGame {
-  constructor() {
+  constructor(toadState) {
     this._action = "";
     this.toad = new Toad();
     this.actionObservers = [];
+    this._toadState = toadState || {
+      health: Date.now(),
+      education: Date.now(),
+      age: Date.now(),
+    };
+    this.updateToadState();
+    this.healthDisplay = new HealthDisplay(this._toadState);
   }
   addObserver(observer) {
     this.actionObservers.push(observer);
@@ -101,22 +97,98 @@ class ToadGame {
   }
   interactWithToad() {
     this.toad.interact(this._action);
+    this.updateToadState(this._action);
     this.updateAction("");
+    this.healthDisplay.updateDisplay();
+  }
+  updateToadState(action) {
+    if (action) this._toadState[action] = Date.now();
+    localStorage.setItem("toad-state", JSON.stringify(this._toadState));
   }
 }
 
-let game = new ToadGame();
+class HealthDisplay {
+  constructor(toadState) {
+    this._state = toadState;
+    this.createDisplay();
+    this.interval = setInterval(() => {
+      this.updateDisplay();
+    }, 3000);
+  }
+  createDisplay() {
+    this.display = document.createElement("div");
+    this.display.classList.add("health-display");
+    document.body.appendChild(this.display);
+    //title
+    let title = document.createElement("h2");
+    title.innerHTML = "health";
+
+    this.display.appendChild(title);
+
+    this.dataDisplay = document.createElement("div");
+
+    this.display.appendChild(this.dataDisplay);
+    this.updateDisplay();
+  }
+  updateDisplay() {
+    this.dataDisplay.innerHTML = "";
+    this.dataDisplay.appendChild(this.createData("water", this._state.health));
+    this.dataDisplay.appendChild(
+      this.createData("education", this._state.education)
+    );
+  }
+  createData(title, stat) {
+    let dataContainer = document.createElement("div");
+    dataContainer.classList.add("data-display");
+    let titleDiv = document.createElement("p");
+    titleDiv.innerHTML = title;
+    dataContainer.appendChild(titleDiv);
+    //update eductation
+    let bar = this.createBarGraph(stat);
+    dataContainer.appendChild(bar);
+    return dataContainer;
+  }
+  createBarGraph(stat) {
+    let barContainer = document.createElement("div");
+    barContainer.classList.add("bar-container");
+    let barPercentage = document.createElement("div");
+    barPercentage.classList.add("bar-percentage");
+    barContainer.appendChild(barPercentage);
+    let percentage = this.calculatePercentage(stat);
+    barPercentage.style.width = percentage + "%";
+    barPercentage.style.backgroundColor = "green";
+    barPercentage.style.backgroundColor = this.getBarColor(percentage);
+    return barContainer;
+  }
+  calculatePercentage(stat) {
+    const timeDifferenceMS = Date.now() - stat;
+    const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
+    // const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
+    // 36 hours till depleated
+    if (timeDifferenceSecs > 60) return 0;
+    return (100 * (60 - timeDifferenceSecs)) / 60;
+    // return Math.floor(Math.random() * +100);
+  }
+  getBarColor(number) {
+    if (number > 75) return "green";
+    if (number > 25) return "orange";
+    return "red";
+  }
+}
+
+let localState = localStorage.getItem("toad-state");
+if (localState) localState = JSON.parse(localState);
+let game = new ToadGame(localState);
 let cursorFollower = new CursorImg();
 game.addObserver(cursorFollower);
 
-//Game pieces
-
-//buttons
+//GAME PIECES
 let waterBtn = document.getElementById("waterBtn");
 let readBtn = document.getElementById("readBtn");
 let cancelBtn = document.getElementById("cancelBtn");
 let toadBtn = document.getElementById("toadDivWrapper");
-waterBtn.addEventListener("click", () => game.updateAction("water"));
-readBtn.addEventListener("click", () => game.updateAction("read"));
+
+waterBtn.addEventListener("click", () => game.updateAction("health"));
+readBtn.addEventListener("click", () => game.updateAction("education"));
 cancelBtn.addEventListener("click", () => game.updateAction(""));
 toadBtn.addEventListener("click", () => game.interactWithToad());

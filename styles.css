@@ -3,6 +3,9 @@
   /* --bgColor: rgb(179, 188, 172); */
   --prColor: rgb(44, 25, 34);
   --bgColor: rgb(255, 231, 235);
+
+  font-family: futura-pt, sans-serif;
+  font-weight: bold;
 }
 
 * {
@@ -174,4 +177,36 @@ button {
 }
 button:hover {
   cursor: pointer;
+}
+
+.health-display {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  position: absolute;
+  padding: 3px;
+  padding-bottom: 20px;
+  top: 10px;
+  right: 10px;
+  width: 200px;
+  /* height: 200px; */
+  background-color: rgba(255, 255, 255, 0.363);
+  border: 2px solid var(--prColor);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 10px 10px 100px rgba(44, 25, 34, 0.273);
+}
+
+.data-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bar-container {
+  width: 90%;
+  height: 20px;
+  background-color: var(--prColor);
+}
+.bar-percentage {
+  height: 100%;
 }

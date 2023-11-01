@@ -198,16 +198,21 @@ button:hover {
 }
 
 .data-display {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .bar-container {
+  border-radius: 50px;
+  overflow: hidden;
   width: 90%;
   height: 20px;
+  box-shadow: inset 0px 5px 10px black;
   background-color: var(--prColor);
 }
 .bar-percentage {
+  box-shadow: 10px 0px 10px black;
   height: 100%;
   transition: all 0.5s ease-out;
 }

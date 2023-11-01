@@ -128,14 +128,24 @@ class HealthDisplay {
     this.dataDisplay = document.createElement("div");
 
     this.display.appendChild(this.dataDisplay);
-    this.updateDisplay();
-  }
-  updateDisplay() {
-    this.dataDisplay.innerHTML = "";
     this.dataDisplay.appendChild(this.createData("water", this._state.health));
     this.dataDisplay.appendChild(
       this.createData("education", this._state.education)
     );
+  }
+  updateDisplay() {
+    this.updateBarPercentage(
+      document.getElementById("water-percentage"),
+      this._state.health
+    );
+    this.updateBarPercentage(
+      document.getElementById("education-percentage"),
+      this._state.education
+    );
+    // this.dataDisplay.appendChild(this.createData("water", this._state.health));
+    // this.dataDisplay.appendChild(
+    // this.createData("education", this._state.education)
+    // );
   }
   createData(title, stat) {
     let dataContainer = document.createElement("div");
@@ -144,29 +154,34 @@ class HealthDisplay {
     titleDiv.innerHTML = title;
     dataContainer.appendChild(titleDiv);
     //update eductation
-    let bar = this.createBarGraph(stat);
+    let bar = this.createBarGraph(title, stat);
     dataContainer.appendChild(bar);
     return dataContainer;
   }
-  createBarGraph(stat) {
+  createBarGraph(title, stat) {
     let barContainer = document.createElement("div");
     barContainer.classList.add("bar-container");
     let barPercentage = document.createElement("div");
     barPercentage.classList.add("bar-percentage");
+    barPercentage.id = title + "-percentage";
+
     barContainer.appendChild(barPercentage);
+    this.updateBarPercentage(barPercentage, stat);
+    return barContainer;
+  }
+  updateBarPercentage(barPercentage, stat) {
     let percentage = this.calculatePercentage(stat);
     barPercentage.style.width = percentage + "%";
     barPercentage.style.backgroundColor = "green";
     barPercentage.style.backgroundColor = this.getBarColor(percentage);
-    return barContainer;
   }
   calculatePercentage(stat) {
     const timeDifferenceMS = Date.now() - stat;
     const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
     // const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
     // 36 hours till depleated
-    if (timeDifferenceSecs > 600) return 0;
-    return (100 * (600 - timeDifferenceSecs)) / 600;
+    if (timeDifferenceSecs > 60) return 0;
+    return (100 * (60 - timeDifferenceSecs)) / 60;
     // return Math.floor(Math.random() * +100);
   }
   getBarColor(number) {

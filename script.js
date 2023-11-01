@@ -165,8 +165,8 @@ class HealthDisplay {
     const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
     // const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
     // 36 hours till depleated
-    if (timeDifferenceSecs > 60) return 0;
-    return (100 * (60 - timeDifferenceSecs)) / 60;
+    if (timeDifferenceSecs > 600) return 0;
+    return (100 * (600 - timeDifferenceSecs)) / 600;
     // return Math.floor(Math.random() * +100);
   }
   getBarColor(number) {

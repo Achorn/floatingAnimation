@@ -7,7 +7,7 @@ function createCurserImg(asset) {
   return img;
 }
 
-class CursorFollower {
+class CursorImg {
   constructor() {
     let cursorFollower = document.createElement("div");
     cursorFollower.classList.add("cursor-img-container");
@@ -20,83 +20,103 @@ class CursorFollower {
       cursorFollower.style.left = x + -20 + "px";
     });
   }
+  updateAction(action) {
+    switch (action) {
+      case "water":
+        this.selectNewCursorImg(bottleImg);
+        break;
+      case "read":
+        this.selectNewCursorImg(bookImg);
+        break;
+      default:
+        this.removeSelectedCursorImg();
+        break;
+    }
+  }
   removeSelectedCursorImg() {
     this._cursorFollower.innerHTML = "";
   }
-
   selectNewCursorImg(newImg) {
     this.removeSelectedCursorImg();
     this._cursorFollower.appendChild(newImg);
   }
 }
-let cursorFollower = new CursorFollower();
-
-document.getElementById("waterBtn").addEventListener("click", () => {
-  cursorFollower.selectNewCursorImg(bottleImg);
-});
-document.getElementById("readBtn").addEventListener("click", () => {
-  cursorFollower.selectNewCursorImg(bookImg);
-});
-document.getElementById("cancelBtn").addEventListener("click", () => {
-  cursorFollower.removeSelectedCursorImg();
-});
-document.getElementById("toadDivWrapper").addEventListener("click", () => {
-  cursorFollower.removeSelectedCursorImg();
-});
-class ToadGame {
-  constructor() {
-    this._hunger = 100;
-    this._education = 100;
-    this._selectedAction = null;
-  }
-}
-
-new ToadGame();
 
 class Toad {
   constructor() {
-    console.log("toad constructor");
-    this._toad = document.getElementById("toadImg");
-    this.loadToad();
-    document
-      .getElementById("toadDivWrapper")
-      .addEventListener("mouseenter", () => {
-        //show suprise expression
-        console.log("in init hover");
-        this.toadonHoverDisplay();
-      });
-    document
-      .getElementById("toadDivWrapper")
-      .addEventListener("mouseleave", () => {
-        //revert to selected state
-        this.toadcurrentStateDisplay();
-      });
+    this._toad = document.getElementById("toadDivWrapper");
+    this._animating;
+    this.animation;
+  }
+  resetAnimation() {}
+  feedAnimation() {
+    this.resetAnimation();
+  }
+  educateAnimation() {
+    this.resetAnimation();
   }
 
-  loadToad() {
-    return new Promise((resolve) => {
-      this._toad.addEventListener("load", () => {
-        resolve(this._toad);
-      });
-    });
+  interact(action) {
+    console.log(action);
+    switch (action) {
+      case "water":
+        this.feedAnimation();
+        break;
+      case "read":
+        this.educateAnimation();
+        break;
+      default:
+        break;
+    }
   }
-
   toadonHoverDisplay() {
-    console.log("hovered");
-    let hovImg = document.getElementById("toadImgHover");
-    hovImg.style.display = "inline";
-    this._toad.style.display = "none";
+    // let hovImg = document.getElementById("toadImgHover");
+    // hovImg.style.display = "inline";
+    // this._toad.style.display = "none";
   }
   toadcurrentStateDisplay() {
-    console.log("left");
-    let hovImg = document.getElementById("toadImgHover");
-    hovImg.style.display = "none";
-    this._toad.style.display = "inline";
+    // let hovImg = document.getElementById("toadImgHover");
+    // hovImg.style.display = "none";
+    // this._toad.style.display = "inline";
   }
-  // toad state
-
-  //takes care of toads state and animations?
-
-  // toad on hover
 }
-let toad = new Toad();
+
+class ToadGame {
+  constructor() {
+    this._action = "";
+    this.toad = new Toad();
+    this.actionObservers = [];
+  }
+  addObserver(observer) {
+    this.actionObservers.push(observer);
+  }
+  notifyObservers() {
+    this.actionObservers.forEach((observer) => {
+      observer.updateAction(this._action);
+    });
+  }
+  updateAction(act) {
+    this._action = act;
+    this.notifyObservers();
+  }
+  interactWithToad() {
+    this.toad.interact(this._action);
+    this.updateAction("");
+  }
+}
+
+let game = new ToadGame();
+let cursorFollower = new CursorImg();
+game.addObserver(cursorFollower);
+
+//Game pieces
+
+//buttons
+let waterBtn = document.getElementById("waterBtn");
+let readBtn = document.getElementById("readBtn");
+let cancelBtn = document.getElementById("cancelBtn");
+let toadBtn = document.getElementById("toadDivWrapper");
+waterBtn.addEventListener("click", () => game.updateAction("water"));
+readBtn.addEventListener("click", () => game.updateAction("read"));
+cancelBtn.addEventListener("click", () => game.updateAction(""));
+toadBtn.addEventListener("click", () => game.interactWithToad());

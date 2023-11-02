@@ -57,19 +57,14 @@ class Toad {
   }
 
   interact(action) {
-    console.log("toad interaction method");
-
     switch (action) {
       case "health":
-        console.log("hello water");
         this.feedAnimation();
         break;
       case "education":
-        console.log("hello ed");
         this.educateAnimation();
         break;
       default:
-        console.log("hello default");
         break;
     }
   }

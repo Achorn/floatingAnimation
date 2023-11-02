@@ -119,10 +119,9 @@ class HealthDisplay {
     this.display = document.getElementById("health-display");
     document.body.appendChild(this.display);
 
-    this.dataDisplay = document.createElement("div");
-    this.dataDisplay.classList.add("data-container");
+    this.dataDisplay = document.getElementById("data-container");
 
-    this.display.appendChild(this.dataDisplay);
+    // this.display.appendChild(this.dataDisplay);
     this.dataDisplay.appendChild(this.createData("water", this._state.health));
     this.dataDisplay.appendChild(
       this.createData("education", this._state.education)
@@ -137,10 +136,6 @@ class HealthDisplay {
       document.getElementById("education-percentage"),
       this._state.education
     );
-    // this.dataDisplay.appendChild(this.createData("water", this._state.health));
-    // this.dataDisplay.appendChild(
-    // this.createData("education", this._state.education)
-    // );
   }
   createData(title, stat) {
     let dataContainer = document.createElement("div");

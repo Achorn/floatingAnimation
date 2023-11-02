@@ -180,7 +180,9 @@ body {
   cursor: pointer;
 }
 
-.health-display {
+#health-display {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
   /* display: flex; */
   /* flex-direction: column; */
   /* align-items: center; */
@@ -189,15 +191,28 @@ body {
   padding-bottom: 20px;
   top: 10px;
   right: 10px;
-  width: 200px;
+  /* width: 200px; */
   /* height: 200px; */
   background-color: rgba(255, 255, 255, 0.363);
   border: 2px solid var(--prColor);
   border-radius: 10px;
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
-
   box-shadow: 10px 10px 100px rgba(44, 25, 34, 0.273);
+}
+#health-display-title {
+  transition: all 0.2s ease-in-out;
+}
+.health-display-title-small {
+  font-size: 15px;
+  margin: 0px;
+}
+.health-full {
+  width: 200px;
+}
+.health-small {
+  width: 80px;
+  padding: 10px;
 }
 
 .data-display {
@@ -205,16 +220,34 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
 .bar-container {
-  border-radius: 50px;
+  transition: all 0.2s ease-in-out;
   overflow: hidden;
   width: 90%;
-  height: 20px;
   background-color: var(--prColor);
+}
+.data-display p {
+  transition: all 0.2s ease-in-out;
+}
+.bar-container-full {
+  height: 20px;
+  border-radius: 50px;
+}
+.bar-container-small {
+  height: 4px;
+  border-radius: 0px;
 }
 .bar-percentage {
   height: 100%;
   transition: all 0.5s ease-out;
+}
+.bar-title-small {
+  font-size: 10px;
+  margin: 2px;
+  /* width: 30px; */
+  overflow: scroll;
+  text-overflow: ellipsis;
 }
 
 @media (pointer: none), (pointer: coarse) {
@@ -224,33 +257,26 @@ body {
   #mob-btn-holder {
     display: flex;
   }
-  .health-display {
-    width: 80px;
-    padding: 10px;
-  }
-  .data-container {
+
+  /* .data-container {
     display: flex;
     flex-direction: column;
     align-items: left;
-  }
-  .health-display h2 {
+  } */
+  /* #health-display h2 {
     font-size: 15px;
     margin: 0px;
-  }
-  .data-display {
+  } */
+  /* .data-display {
     align-items: left;
-  }
-  .data-display p {
+  } */
+  /* .data-display p {
     font-size: 10px;
     margin: 2px;
-    /* width: 30px; */
-    overflow: scroll;
-    text-overflow: ellipsis;
-  }
-  .bar-container {
-    height: 4px;
-    border-radius: 0px;
-  }
+    width: 30px;
+  overflow: scroll;
+  text-overflow: ellipsis;
+  } */
 }
 
 .material-symbols-rounded {

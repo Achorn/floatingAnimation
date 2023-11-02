@@ -41,26 +41,6 @@ body {
   align-items: center;
 }
 
-#cardTitle {
-  color: var(--prColor);
-  position: absolute;
-  line-height: 0px;
-  height: 0px;
-}
-.topLeft {
-  font-size: 100px;
-
-  top: -10px;
-  left: 20px;
-}
-.bottomRight {
-  font-size: 110px;
-
-  right: 20px;
-  bottom: -10px;
-  transform: rotate(180deg);
-}
-
 #floatBox {
   height: 95%;
   width: 95%;

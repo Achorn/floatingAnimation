@@ -57,14 +57,19 @@ class Toad {
   }
 
   interact(action) {
+    console.log("toad interaction method");
+
     switch (action) {
       case "health":
+        console.log("hello water");
         this.feedAnimation();
         break;
       case "education":
+        console.log("hello ed");
         this.educateAnimation();
         break;
       default:
+        console.log("hello default");
         break;
     }
   }
@@ -198,6 +203,7 @@ let cursorFollower = new CursorImg();
 game.addObserver(cursorFollower);
 
 //GAME PIECES
+//web
 let waterBtn = document.getElementById("waterBtn");
 let readBtn = document.getElementById("readBtn");
 let cancelBtn = document.getElementById("cancelBtn");
@@ -207,3 +213,16 @@ waterBtn.addEventListener("click", () => game.updateAction("health"));
 readBtn.addEventListener("click", () => game.updateAction("education"));
 cancelBtn.addEventListener("click", () => game.updateAction(""));
 toadBtn.addEventListener("click", () => game.interactWithToad());
+
+//mobile
+let mobWaterBtn = document.getElementById("mob-water-btn");
+let mobReadBtn = document.getElementById("mob-read-btn");
+
+mobWaterBtn.addEventListener("click", () => {
+  game.updateAction("health");
+  game.interactWithToad();
+});
+mobReadBtn.addEventListener("click", () => {
+  game.updateAction("education");
+  game.interactWithToad();
+});

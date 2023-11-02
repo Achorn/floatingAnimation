@@ -99,6 +99,8 @@ body {
 #toadImg {
   width: auto;
   height: 100%;
+  /* -webkit-filter: drop-shadow(5px 5px #222); */
+  /* filter: drop-shadow(100px 10px 10px rgba(42, 25, 51, 0.173)); */
 }
 #toadImgHover {
   display: none;
@@ -163,9 +165,21 @@ body {
   width: auto;
 }
 
-#btn-holder {
+#web-btn-holder {
+  display: inline;
   padding: 10px;
   /* background: red; */
+}
+
+#mob-btn-holder {
+  display: none;
+  padding: 10px;
+  /* background: red; */
+}
+.mob-btn {
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  height: 80px;
 }
 
 button {
@@ -214,4 +228,16 @@ button:hover {
 .bar-percentage {
   height: 100%;
   transition: all 0.5s ease-out;
+}
+
+@media (pointer: none), (pointer: coarse) {
+  #web-btn-holder {
+    display: none;
+  }
+  #mob-btn-holder {
+    display: inline;
+  }
+  .cursor-img-container {
+    /* display: none; */
+  }
 }

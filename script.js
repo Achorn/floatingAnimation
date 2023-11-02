@@ -126,6 +126,7 @@ class HealthDisplay {
     this.display.appendChild(title);
 
     this.dataDisplay = document.createElement("div");
+    this.dataDisplay.classList.add("data-container");
 
     this.display.appendChild(this.dataDisplay);
     this.dataDisplay.appendChild(this.createData("water", this._state.health));

@@ -116,14 +116,8 @@ class HealthDisplay {
     }, 3000);
   }
   createDisplay() {
-    this.display = document.createElement("div");
-    this.display.classList.add("health-display");
+    this.display = document.getElementById("health-display");
     document.body.appendChild(this.display);
-    //title
-    let title = document.createElement("h2");
-    title.innerHTML = "health";
-
-    this.display.appendChild(title);
 
     this.dataDisplay = document.createElement("div");
     this.dataDisplay.classList.add("data-container");

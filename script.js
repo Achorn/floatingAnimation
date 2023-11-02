@@ -12,6 +12,7 @@ function isTouchDevice() {
 }
 
 //FUTURE LOADING
+
 const loadImg = (img) =>
   new Promise((resolve) => {
     img.onload = () => {
@@ -117,6 +118,8 @@ class ToadGame {
       health: Date.now(),
       education: Date.now(),
       age: Date.now(),
+      education_points: 0,
+      water_points: 0,
     };
     this.updateToadState();
     this.healthDisplay = new HealthDisplay(this._toadState);
@@ -140,7 +143,20 @@ class ToadGame {
     this.healthDisplay.updateDisplay();
   }
   updateToadState(action) {
-    if (action) this._toadState[action] = Date.now();
+    console.log(this._toadState);
+    if (action) {
+      this._toadState[action] = Date.now();
+
+      if (action == "health") {
+        let curPoints = this._toadState.water_points || 0;
+        this._toadState.water_points = curPoints + 1;
+      }
+      if (action == "education") {
+        let curPoints = this._toadState.education_points || 0;
+        this._toadState.education_points = curPoints + 1;
+      }
+    }
+
     localStorage.setItem("toad-state", JSON.stringify(this._toadState));
   }
 }

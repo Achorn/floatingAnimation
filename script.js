@@ -7,6 +7,20 @@ function createCurserImg(asset) {
   return img;
 }
 
+function isTouchDevice() {
+  return window.matchMedia("(any-hover: none)").matches;
+}
+
+//FUTURE LOADING
+// const googleFontsPromise = document.fonts.ready.then(function () {
+//   if (!document.fonts.check("12px Material-Icons")) {
+//     return Error;
+//   }
+// });
+// Promise.all([googleFontsPromise]).then((val) => {
+//   console.log("promise all");
+// });
+
 class CursorImg {
   constructor() {
     let cursorFollower = document.createElement("div");
@@ -110,8 +124,8 @@ class ToadGame {
 class HealthDisplay {
   constructor(toadState) {
     this._state = toadState;
+    this.fullSize = !isTouchDevice();
     this.initDisplay();
-
     this.interval = setInterval(() => {
       this.updateDisplay();
     }, 3000);
@@ -120,43 +134,21 @@ class HealthDisplay {
     this.display = document.getElementById("health-display");
     this.dataDisplay = document.getElementById("data-container");
     this.waterPerc = document.getElementById("water-percentage");
+    this.barcontainers = document.getElementsByClassName("bar-container");
     this.eduPerc = document.getElementById("education-percentage");
     this.waterPerc.style.width = "0%";
     this.waterPerc.style.backgroundColor = "red";
     this.eduPerc.style.width = "0%";
     this.eduPerc.style.backgroundColor = "red";
+    this.display.addEventListener("click", () => this.toggleSize());
+    this.title = document.getElementById("health-display-title");
+    this.fullSize ? this.makeBig() : this.makeSmall();
   }
   updateDisplay() {
-    this.updateBarPercentage(
-      document.getElementById("water-percentage"),
-      this._state.health
-    );
-    this.updateBarPercentage(
-      document.getElementById("education-percentage"),
-      this._state.education
-    );
+    this.updateBarPercentage(this.waterPerc, this._state.health);
+    this.updateBarPercentage(this.eduPerc, this._state.education);
   }
-  // createData(title, stat) {
-  //   let dataContainer = document.createElement("div");
-  //   dataContainer.classList.add("data-display");
-  //   let titleDiv = document.createElement("p");
-  //   titleDiv.innerHTML = title;
-  //   dataContainer.appendChild(titleDiv);
-  //   let bar = this.createBarGraph(title, stat);
-  //   dataContainer.appendChild(bar);
-  //   return dataContainer;
-  // }
-  // createBarGraph(title, stat) {
-  //   // let barContainer = document.createElement("div");
-  //   // barContainer.classList.add("bar-container");
-  //   // let barPercentage = document.createElement("div");
-  //   // barPercentage.classList.add("bar-percentage");
-  //   // barPercentage.id = title + "-percentage";
 
-  //   barContainer.appendChild(barPercentage);
-  //   this.updateBarPercentage(barPercentage, stat);
-  //   return barContainer;
-  // }
   updateBarPercentage(barPercentage, stat) {
     let percentage = this.calculatePercentage(stat);
     barPercentage.style.width = percentage + "%";
@@ -176,6 +168,40 @@ class HealthDisplay {
     if (number > 75) return "green";
     if (number > 25) return "orange";
     return "red";
+  }
+
+  toggleSize() {
+    this.fullSize ? this.makeSmall() : this.makeBig();
+  }
+  makeBig() {
+    console.log("making big");
+    this.fullSize = true;
+    this.display.classList.add("health-full");
+    this.display.classList.remove("health-small");
+    console.log(this.title);
+    this.title.classList.remove("health-display-title-small");
+    for (let bar of this.barcontainers) {
+      bar.classList.add("bar-container-full");
+      bar.classList.remove("bar-container-small");
+    }
+    for (let title of document.getElementsByClassName("bar-title")) {
+      title.classList.remove("bar-title-small");
+    }
+  }
+  makeSmall() {
+    console.log("making small");
+    this.display.classList.remove("health-full");
+    this.display.classList.add("health-small");
+    this.title.classList.add("health-display-title-small");
+
+    for (let bar of this.barcontainers) {
+      bar.classList.remove("bar-container-full");
+      bar.classList.add("bar-container-small");
+    }
+    for (let title of document.getElementsByClassName("bar-title")) {
+      title.classList.add("bar-title-small");
+    }
+    this.fullSize = false;
   }
 }
 

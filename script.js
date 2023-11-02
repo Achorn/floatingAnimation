@@ -6,20 +6,44 @@ function createCurserImg(asset) {
   img.classList.add("curser-img");
   return img;
 }
-
+let toadImg = document.getElementById("toadImg");
 function isTouchDevice() {
   return window.matchMedia("(any-hover: none)").matches;
 }
 
 //FUTURE LOADING
-// const googleFontsPromise = document.fonts.ready.then(function () {
-//   if (!document.fonts.check("12px Material-Icons")) {
-//     return Error;
-//   }
-// });
-// Promise.all([googleFontsPromise]).then((val) => {
-//   console.log("promise all");
-// });
+const loadImg = (img) =>
+  new Promise((resolve) => {
+    img.onload = () => {
+      resolve({});
+    };
+  });
+
+const googleFontsPromise = document.fonts.ready.then(function () {
+  if (!document.fonts.check("12px Material-Icons")) {
+    return Error;
+  }
+});
+// const delayPromise = new Promise((resolve) => setTimeout(resolve, 3000));
+Promise.all([googleFontsPromise, toadImg.complete || loadImg(toadImg)]).then(
+  () => {
+    document.getElementById("loading-container").style.display = "none";
+    expandAndDisplay(document.getElementById("floatBoxContainer"), "flex");
+    expandAndDisplay(document.getElementById("all-btn-holder"), "inline");
+    expandAndDisplay(document.getElementById("health-display"), "inline");
+  }
+);
+
+function shrinkAndDlete(element) {
+  element.classList.add("shrink");
+  setTimeout(() => {
+    element.remove();
+  }, 500);
+}
+function expandAndDisplay(element, displayType) {
+  element.classList.add("expand");
+  element.style.display = displayType;
+}
 
 class CursorImg {
   constructor() {
@@ -159,7 +183,6 @@ class HealthDisplay {
     const timeDifferenceMS = Date.now() - stat;
     const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
     // const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
-    // 36 hours till depleated
     if (timeDifferenceSecs > 60) return 0;
     return (100 * (60 - timeDifferenceSecs)) / 60;
     // return Math.floor(Math.random() * +100);
@@ -174,11 +197,9 @@ class HealthDisplay {
     this.fullSize ? this.makeSmall() : this.makeBig();
   }
   makeBig() {
-    console.log("making big");
     this.fullSize = true;
     this.display.classList.add("health-full");
     this.display.classList.remove("health-small");
-    console.log(this.title);
     this.title.classList.remove("health-display-title-small");
     for (let bar of this.barcontainers) {
       bar.classList.add("bar-container-full");
@@ -189,7 +210,6 @@ class HealthDisplay {
     }
   }
   makeSmall() {
-    console.log("making small");
     this.display.classList.remove("health-full");
     this.display.classList.add("health-small");
     this.title.classList.add("health-display-title-small");

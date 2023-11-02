@@ -2,8 +2,8 @@
   /* --prColor: rgb(44, 54, 24); */
   /* --bgColor: rgb(179, 188, 172); */
   --prColor: rgb(44, 25, 34);
-  --bgColor: rgb(255, 231, 235);
-
+  --secColor: rgb(255, 231, 235);
+  --bgColor: rgb(220, 189, 220);
   font-family: futura-pt, sans-serif;
   font-weight: bold;
 }
@@ -12,7 +12,8 @@
   box-sizing: border-box;
 }
 body {
-  background: rgb(220, 189, 220);
+  background: var(--bgColor);
+
   margin: 0;
   text-align: center;
   color: var(--prColor);
@@ -146,9 +147,11 @@ body {
 }
 
 #web-btn-holder {
-  display: inline;
+  /* display: inline; */
   padding: 10px;
   /* background: red; */
+  display: flex;
+  gap: 10px;
 }
 
 #mob-btn-holder {
@@ -164,20 +167,30 @@ body {
   height: 80px;
   border: 2px solid var(--prColor);
   box-shadow: 0px 2px var(--prColor);
-  background: var(--bgColor);
+  background: var(--secColor);
   padding: 10px;
   font-weight: bold;
   color: var(--prColor);
 }
 .game-btn {
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  height: 80px;
+  border: 2px solid var(--prColor);
+  box-shadow: 0px 2px var(--prColor);
+  background: var(--secColor);
+  padding: 10px;
+  font-weight: bold;
+  /* color: var(--prColor);
   border: 2px solid var(--prColor);
   background: var(--bgColor);
   padding: 10px;
   font-weight: bold;
-  color: var(--prColor);
+  color: var(--prColor); */
 }
 .game-btn:hover {
   cursor: pointer;
+  background-color: var(--bgColor);
 }
 
 #health-display {
@@ -257,26 +270,6 @@ body {
   #mob-btn-holder {
     display: flex;
   }
-
-  /* .data-container {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-  } */
-  /* #health-display h2 {
-    font-size: 15px;
-    margin: 0px;
-  } */
-  /* .data-display {
-    align-items: left;
-  } */
-  /* .data-display p {
-    font-size: 10px;
-    margin: 2px;
-    width: 30px;
-  overflow: scroll;
-  text-overflow: ellipsis;
-  } */
 }
 
 .material-symbols-rounded {

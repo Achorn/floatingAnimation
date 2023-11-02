@@ -224,7 +224,9 @@ body {
   #mob-btn-holder {
     display: flex;
   }
-  .cursor-img-container {
-    /* display: none; */
-  }
+}
+
+.material-symbols-rounded {
+  font-size: 40px;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 400;
 }

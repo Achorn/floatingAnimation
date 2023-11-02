@@ -110,22 +110,21 @@ class ToadGame {
 class HealthDisplay {
   constructor(toadState) {
     this._state = toadState;
-    this.createDisplay();
+    this.initDisplay();
+
     this.interval = setInterval(() => {
       this.updateDisplay();
     }, 3000);
   }
-  createDisplay() {
+  initDisplay() {
     this.display = document.getElementById("health-display");
-    document.body.appendChild(this.display);
-
     this.dataDisplay = document.getElementById("data-container");
-
-    // this.display.appendChild(this.dataDisplay);
-    this.dataDisplay.appendChild(this.createData("water", this._state.health));
-    this.dataDisplay.appendChild(
-      this.createData("education", this._state.education)
-    );
+    this.waterPerc = document.getElementById("water-percentage");
+    this.eduPerc = document.getElementById("education-percentage");
+    this.waterPerc.style.width = "0%";
+    this.waterPerc.style.backgroundColor = "red";
+    this.eduPerc.style.width = "0%";
+    this.eduPerc.style.backgroundColor = "red";
   }
   updateDisplay() {
     this.updateBarPercentage(
@@ -137,28 +136,27 @@ class HealthDisplay {
       this._state.education
     );
   }
-  createData(title, stat) {
-    let dataContainer = document.createElement("div");
-    dataContainer.classList.add("data-display");
-    let titleDiv = document.createElement("p");
-    titleDiv.innerHTML = title;
-    dataContainer.appendChild(titleDiv);
-    //update eductation
-    let bar = this.createBarGraph(title, stat);
-    dataContainer.appendChild(bar);
-    return dataContainer;
-  }
-  createBarGraph(title, stat) {
-    let barContainer = document.createElement("div");
-    barContainer.classList.add("bar-container");
-    let barPercentage = document.createElement("div");
-    barPercentage.classList.add("bar-percentage");
-    barPercentage.id = title + "-percentage";
+  // createData(title, stat) {
+  //   let dataContainer = document.createElement("div");
+  //   dataContainer.classList.add("data-display");
+  //   let titleDiv = document.createElement("p");
+  //   titleDiv.innerHTML = title;
+  //   dataContainer.appendChild(titleDiv);
+  //   let bar = this.createBarGraph(title, stat);
+  //   dataContainer.appendChild(bar);
+  //   return dataContainer;
+  // }
+  // createBarGraph(title, stat) {
+  //   // let barContainer = document.createElement("div");
+  //   // barContainer.classList.add("bar-container");
+  //   // let barPercentage = document.createElement("div");
+  //   // barPercentage.classList.add("bar-percentage");
+  //   // barPercentage.id = title + "-percentage";
 
-    barContainer.appendChild(barPercentage);
-    this.updateBarPercentage(barPercentage, stat);
-    return barContainer;
-  }
+  //   barContainer.appendChild(barPercentage);
+  //   this.updateBarPercentage(barPercentage, stat);
+  //   return barContainer;
+  // }
   updateBarPercentage(barPercentage, stat) {
     let percentage = this.calculatePercentage(stat);
     barPercentage.style.width = percentage + "%";

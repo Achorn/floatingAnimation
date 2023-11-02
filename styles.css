@@ -147,9 +147,7 @@ body {
 }
 
 #web-btn-holder {
-  /* display: inline; */
   padding: 10px;
-  /* background: red; */
   display: flex;
   gap: 10px;
 }
@@ -181,12 +179,6 @@ body {
   background: var(--secColor);
   padding: 10px;
   font-weight: bold;
-  /* color: var(--prColor);
-  border: 2px solid var(--prColor);
-  background: var(--bgColor);
-  padding: 10px;
-  font-weight: bold;
-  color: var(--prColor); */
 }
 .game-btn:hover {
   cursor: pointer;
@@ -196,16 +188,11 @@ body {
 #health-display {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
   position: absolute;
   padding: 3px;
   padding-bottom: 20px;
   top: 10px;
   right: 10px;
-  /* width: 200px; */
-  /* height: 200px; */
   background-color: rgba(255, 255, 255, 0.363);
   border: 2px solid var(--prColor);
   border-radius: 10px;
@@ -258,7 +245,6 @@ body {
 .bar-title-small {
   font-size: 10px;
   margin: 2px;
-  /* width: 30px; */
   overflow: scroll;
   text-overflow: ellipsis;
 }

@@ -1,9 +1,14 @@
 :root {
   /* --prColor: rgb(44, 54, 24); */
+  /* --secColor: rgb(136, 144, 130); */
   /* --bgColor: rgb(179, 188, 172); */
   --prColor: rgb(44, 25, 34);
   --secColor: rgb(255, 231, 235);
   --bgColor: rgb(220, 189, 220);
+
+  /* --prColor: rgb(44, 25, 34); */
+  /* --secColor: rgb(176, 150, 176); */
+  /* --bgColor: rgb(84, 61, 84); */
   font-family: futura-pt, sans-serif;
   font-weight: bold;
 }
@@ -26,17 +31,32 @@ body {
 #toadTitle {
   font-family: futura-pt, sans-serif;
 }
+#loading-container {
+  /* position: absolute; */
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
+  height: 50%;
+  animation: spin 2.3s ease-in-out infinite;
+}
+#toad-svg {
+  fill: var(--prColor);
+  stroke: var(--prColor);
+  stroke-width: 40;
+  height: 200px;
+}
 
 #floatBoxContainer {
-  /* background-color: var(--bgColor); */
+  display: none;
   aspect-ratio: 5/7;
   height: auto;
   width: 70vw;
   max-width: 350px;
-  /* border: 5px solid var(--prColor); */
   border-radius: 10px;
   position: relative;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -45,7 +65,6 @@ body {
 #floatBox {
   height: 95%;
   width: 95%;
-  /* border: 5px solid var(--prColor); */
   border-radius: 10px;
   border-radius: 5px;
   display: flex;
@@ -105,7 +124,6 @@ body {
   position: absolute;
   border-radius: 50%;
   bottom: 6%;
-  /* left: 0%; */
   height: 8%;
   width: 75%;
   background-color: var(--prColor);
@@ -146,6 +164,9 @@ body {
   width: auto;
 }
 
+#all-btn-holder {
+  display: none;
+}
 #web-btn-holder {
   padding: 10px;
   display: flex;
@@ -186,6 +207,7 @@ body {
 }
 
 #health-display {
+  display: none;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   position: absolute;
@@ -199,6 +221,7 @@ body {
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   box-shadow: 10px 10px 100px rgba(44, 25, 34, 0.273);
+  transform-origin: top right;
 }
 #health-display-title {
   transition: all 0.2s ease-in-out;
@@ -261,4 +284,28 @@ body {
 .material-symbols-rounded {
   font-size: 40px;
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 400;
+}
+
+.shrink {
+  animation: shrinkAnimate 0.5s ease-in-out;
+}
+@keyframes shrinkAnimate {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.expand {
+  animation: expandAnimate 0.5s ease-in-out;
+}
+@keyframes expandAnimate {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

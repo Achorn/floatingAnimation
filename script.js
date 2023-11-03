@@ -121,8 +121,8 @@ class ToadGame {
       education_points: 0,
       water_points: 0,
     };
-    this.updateToadState();
     this.healthDisplay = new HealthDisplay(this._toadState);
+    this.updateToadState();
   }
   addObserver(observer) {
     this.actionObservers.push(observer);
@@ -137,13 +137,23 @@ class ToadGame {
     this.notifyObservers();
   }
   interactWithToad() {
+    if (this._action) {
+      let percentage = this.healthDisplay.calculatePercentage(
+        this._toadState[this._action]
+      );
+      if (percentage > 70) {
+        this.updateAction("");
+        alert("toad is full");
+        return;
+      }
+    }
     this.toad.interact(this._action);
+
     this.updateToadState(this._action);
     this.updateAction("");
     this.healthDisplay.updateDisplay();
   }
   updateToadState(action) {
-    console.log(this._toadState);
     if (action) {
       this._toadState[action] = Date.now();
 
@@ -156,7 +166,6 @@ class ToadGame {
         this._toadState.education_points = curPoints + 1;
       }
     }
-
     localStorage.setItem("toad-state", JSON.stringify(this._toadState));
   }
 }
@@ -197,10 +206,10 @@ class HealthDisplay {
   }
   calculatePercentage(stat) {
     const timeDifferenceMS = Date.now() - stat;
-    const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
-    // const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
-    if (timeDifferenceSecs > 60) return 0;
-    return (100 * (60 - timeDifferenceSecs)) / 60;
+    // const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
+    const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
+    if (timeDifferenceHours > 36) return 0;
+    return (100 * (36 - timeDifferenceHours)) / 36;
     // return Math.floor(Math.random() * +100);
   }
   getBarColor(number) {

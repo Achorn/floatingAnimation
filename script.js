@@ -12,6 +12,7 @@ function isTouchDevice() {
 }
 
 //FUTURE LOADING
+
 const loadImg = (img) =>
   new Promise((resolve) => {
     img.onload = () => {
@@ -117,9 +118,11 @@ class ToadGame {
       health: Date.now(),
       education: Date.now(),
       age: Date.now(),
+      education_points: 0,
+      water_points: 0,
     };
-    this.updateToadState();
     this.healthDisplay = new HealthDisplay(this._toadState);
+    this.updateToadState();
   }
   addObserver(observer) {
     this.actionObservers.push(observer);
@@ -134,13 +137,35 @@ class ToadGame {
     this.notifyObservers();
   }
   interactWithToad() {
+    if (this._action) {
+      let percentage = this.healthDisplay.calculatePercentage(
+        this._toadState[this._action]
+      );
+      if (percentage > 70) {
+        this.updateAction("");
+        alert("toad is full");
+        return;
+      }
+    }
     this.toad.interact(this._action);
+
     this.updateToadState(this._action);
     this.updateAction("");
     this.healthDisplay.updateDisplay();
   }
   updateToadState(action) {
-    if (action) this._toadState[action] = Date.now();
+    if (action) {
+      this._toadState[action] = Date.now();
+
+      if (action == "health") {
+        let curPoints = this._toadState.water_points || 0;
+        this._toadState.water_points = curPoints + 1;
+      }
+      if (action == "education") {
+        let curPoints = this._toadState.education_points || 0;
+        this._toadState.education_points = curPoints + 1;
+      }
+    }
     localStorage.setItem("toad-state", JSON.stringify(this._toadState));
   }
 }
@@ -181,10 +206,10 @@ class HealthDisplay {
   }
   calculatePercentage(stat) {
     const timeDifferenceMS = Date.now() - stat;
-    const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
-    // const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
-    if (timeDifferenceSecs > 60) return 0;
-    return (100 * (60 - timeDifferenceSecs)) / 60;
+    // const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
+    const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
+    if (timeDifferenceHours > 36) return 0;
+    return (100 * (36 - timeDifferenceHours)) / 36;
     // return Math.floor(Math.random() * +100);
   }
   getBarColor(number) {

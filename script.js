@@ -25,15 +25,17 @@ const googleFontsPromise = document.fonts.ready.then(function () {
     return Error;
   }
 });
-// const delayPromise = new Promise((resolve) => setTimeout(resolve, 3000));
-Promise.all([googleFontsPromise, toadImg.complete || loadImg(toadImg)]).then(
-  () => {
-    document.getElementById("loading-container").style.display = "none";
-    expandAndDisplay(document.getElementById("floatBoxContainer"), "flex");
-    expandAndDisplay(document.getElementById("all-btn-holder"), "inline");
-    expandAndDisplay(document.getElementById("health-display"), "inline");
-  }
-);
+const delayPromise = new Promise((resolve) => setTimeout(resolve, 3000));
+Promise.all([
+  googleFontsPromise,
+  delayPromise,
+  toadImg.complete || loadImg(toadImg),
+]).then(() => {
+  document.getElementById("loading-container").style.display = "none";
+  expandAndDisplay(document.getElementById("floatBoxContainer"), "flex");
+  expandAndDisplay(document.getElementById("all-btn-holder"), "inline");
+  expandAndDisplay(document.getElementById("health-display"), "inline");
+});
 
 function shrinkAndDlete(element) {
   element.classList.add("shrink");

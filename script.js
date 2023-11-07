@@ -126,11 +126,6 @@ class Toad {
         this._toadImg.src = img1;
       }
     }, 740);
-    // setTimeout(() => {
-    //   console.log("ending interval");
-    //   clearTimeout(this.interval);
-    //   this._toadImg.src = this.restingImg;
-    // }, 2100);
   }
 
   interact(action) {

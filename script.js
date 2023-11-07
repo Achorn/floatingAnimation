@@ -102,11 +102,18 @@ class Toad {
     this.resetAnimation();
   }
   animateToad(img1, img2) {
+    clearTimeout(this.interval);
     console.log("animating toad");
     this._toadImg.src = img1;
     let boo = true;
-
+    let amount = 0;
     this.interval = setInterval(() => {
+      if (amount == 2) {
+        this._toadImg.src = this.restingImg;
+        clearTimeout(this.interval);
+        return;
+      }
+      amount++;
       if (boo) {
         console.log(boo);
         console.log("2");
@@ -119,11 +126,11 @@ class Toad {
         this._toadImg.src = img1;
       }
     }, 740);
-    setTimeout(() => {
-      console.log("ending interval");
-      clearTimeout(this.interval);
-      this._toadImg.src = this.restingImg;
-    }, 2100);
+    // setTimeout(() => {
+    //   console.log("ending interval");
+    //   clearTimeout(this.interval);
+    //   this._toadImg.src = this.restingImg;
+    // }, 2100);
   }
 
   interact(action) {

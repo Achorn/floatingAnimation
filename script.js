@@ -86,8 +86,13 @@ class CursorImg {
 class Toad {
   constructor() {
     this._toad = document.getElementById("toadDivWrapper");
+    this._toadImg = document.getElementById("toadImg");
     this._animating;
     this.animation;
+    this.interval;
+    this.restingImg = "./assets/imgs/toad-init-v2.png";
+    this.happyOne = "./assets/imgs/emotes/toad-init-happy.png";
+    this.happyTwo = "./assets/imgs/emotes/toad-init-happy-two.png";
   }
   resetAnimation() {}
   feedAnimation() {
@@ -96,16 +101,50 @@ class Toad {
   educateAnimation() {
     this.resetAnimation();
   }
+  animateToad(img1, img2) {
+    console.log("animating toad");
+    this._toadImg.src = img1;
+    let boo = true;
+
+    this.interval = setInterval(() => {
+      if (boo) {
+        console.log(boo);
+        console.log("2");
+        boo = false;
+        this._toadImg.src = img2;
+      } else {
+        console.log("1");
+        console.log(boo);
+        boo = true;
+        this._toadImg.src = img1;
+      }
+    }, 740);
+    setTimeout(() => {
+      console.log("ending interval");
+      clearTimeout(this.interval);
+      this._toadImg.src = this.restingImg;
+    }, 2100);
+  }
 
   interact(action) {
     switch (action) {
       case "health":
-        this.feedAnimation();
+        this.animateToad(
+          "./assets/imgs/emotes/toad-init-happy.png",
+          "./assets/imgs/emotes/toad-init-happy-two.png"
+        );
         break;
       case "education":
-        this.educateAnimation();
+        this.animateToad(
+          "./assets/imgs/emotes/toad-init-educate.png",
+          "./assets/imgs/emotes/toad-init-educate2.png"
+        );
         break;
       default:
+        this.animateToad(
+          "./assets/imgs/emotes/toad-hover-angry-one.png",
+          "./assets/imgs/emotes/toad-init-angry-two.png"
+        );
         break;
     }
   }
@@ -145,12 +184,10 @@ class ToadGame {
       );
       if (percentage > 70) {
         this.updateAction("");
-        alert("toad is full");
-        return;
       }
     }
+    console.log("helloooo");
     this.toad.interact(this._action);
-
     this.updateToadState(this._action);
     this.updateAction("");
     this.healthDisplay.updateDisplay();

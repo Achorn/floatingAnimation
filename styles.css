@@ -96,16 +96,11 @@ body {
     transform: translateY(-10%);
   }
 }
-#toadImg {
+.toadImg {
   width: auto;
   height: 100%;
   /* -webkit-filter: drop-shadow(5px 5px #222); */
   /* filter: drop-shadow(100px 10px 10px rgba(42, 25, 51, 0.173)); */
-}
-#toadImgHover {
-  display: none;
-  width: auto;
-  height: 100%;
 }
 
 #toadDivWrapper {

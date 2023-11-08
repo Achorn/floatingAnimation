@@ -14,6 +14,73 @@
   </head>
   <body>
     <!-- <h1 id="'toadTitle">King-Toad</h1> -->
+    <div id="">
+      <div id="floatBoxContainer">
+        <div id="floatBox" class="float">
+          <div id="toadDivWrapper" class="spin">
+            <img
+              id="toadImgResting"
+              class="toadImg"
+              src="./assets/imgs/toad-init-v2.png"
+            />
+            <img
+              id="toadImgHappy"
+              class="toadImg"
+              src="./assets/imgs/emotes/toad-init-happy-two.png"
+            />
+            <img
+              id="toadImgEducate"
+              class="toadImg"
+              src="./assets/imgs/emotes/toad-init-educate2.png"
+            />
+            <img
+              id="toadImgAngry"
+              class="toadImg"
+              src="./assets/imgs/emotes/toad-init-angry-two.png"
+            />
+          </div>
+        </div>
+        <div id="shadow"></div>
+      </div>
+    </div>
+    <div id="all-btn-holder">
+      <div id="web-btn-holder">
+        <button id="waterBtn" class="game-btn">
+          <span class="material-symbols-rounded"> water_drop </span>
+        </button>
+        <button id="readBtn" class="game-btn">
+          <span class="material-symbols-rounded">menu_book </span>
+        </button>
+        <button id="cancelBtn" class="game-btn">
+          <span class="material-symbols-rounded"> close </span>
+        </button>
+      </div>
+      <div id="mob-btn-holder">
+        <button id="mob-water-btn" class="mob-btn">
+          <span class="material-symbols-rounded"> water_drop </span>
+        </button>
+        <button id="mob-read-btn" class="mob-btn">
+          <span class="material-symbols-rounded">menu_book </span>
+        </button>
+      </div>
+    </div>
+    <div id="health-display">
+      <h2 id="health-display-title">health</h2>
+      <div id="data-container"></div>
+      <div class="data-display">
+        <p class="bar-title">water</p>
+        <div class="bar-container">
+          <div id="water-percentage" class="bar-percentage"></div>
+        </div>
+      </div>
+      <div id="data-container"></div>
+      <div class="data-display">
+        <p class="bar-title">education</p>
+        <div class="bar-container">
+          <div id="education-percentage" class="bar-percentage"></div>
+        </div>
+      </div>
+    </div>
     <div id="loading-container">
       <p>Loading...</p>
       <?xml version="1.0" standalone="no"?>
@@ -1638,55 +1705,6 @@ m213 -258 c15 -16 27 -33 27 -37 0 -4 7 -15 16 -25 9 -10 13 -23 9 -29 -4 -6
           />
         </g>
       </svg>
-    </div>
-    <div id="">
-      <div id="floatBoxContainer">
-        <div id="floatBox" class="float">
-          <div id="toadDivWrapper" class="spin">
-            <img id="toadImg" src="./assets/imgs/toad-init-v2.png" />
-            <img id="toadImgHover" src="./assets/imgs/toad-hover-v2.png" />
-          </div>
-        </div>
-        <div id="shadow"></div>
-      </div>
-    </div>
-    <div id="all-btn-holder">
-      <div id="web-btn-holder">
-        <button id="waterBtn" class="game-btn">
-          <span class="material-symbols-rounded"> water_drop </span>
-        </button>
-        <button id="readBtn" class="game-btn">
-          <span class="material-symbols-rounded">menu_book </span>
-        </button>
-        <button id="cancelBtn" class="game-btn">
-          <span class="material-symbols-rounded"> close </span>
-        </button>
-      </div>
-      <div id="mob-btn-holder">
-        <button id="mob-water-btn" class="mob-btn">
-          <span class="material-symbols-rounded"> water_drop </span>
-        </button>
-        <button id="mob-read-btn" class="mob-btn">
-          <span class="material-symbols-rounded">menu_book </span>
-        </button>
-      </div>
-    </div>
-    <div id="health-display">
-      <h2 id="health-display-title">health</h2>
-      <div id="data-container"></div>
-      <div class="data-display">
-        <p class="bar-title">water</p>
-        <div class="bar-container">
-          <div id="water-percentage" class="bar-percentage"></div>
-        </div>
-      </div>
-      <div id="data-container"></div>
-      <div class="data-display">
-        <p class="bar-title">education</p>
-        <div class="bar-container">
-          <div id="education-percentage" class="bar-percentage"></div>
-        </div>
-      </div>
     </div>
     <script src="script.js"></script>
   </body>

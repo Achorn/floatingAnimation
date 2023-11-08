@@ -292,6 +292,8 @@ const googleFontsPromise = document.fonts.ready.then(function () {
   }
 });
 const delayPromise = new Promise((resolve) => setTimeout(resolve, 2000));
+
+//all promises that wait for game to load
 Promise.all([googleFontsPromise, delayPromise]).then(() => {
   document.getElementById("loading-container").style.display = "none";
   expandAndDisplay(document.getElementById("floatBoxContainer"), "flex");
@@ -299,13 +301,8 @@ Promise.all([googleFontsPromise, delayPromise]).then(() => {
   expandAndDisplay(document.getElementById("health-display"), "inline");
 });
 
-function shrinkAndDlete(element) {
-  element.classList.add("shrink");
-  setTimeout(() => {
-    element.remove();
-  }, 500);
-}
 function expandAndDisplay(element, displayType) {
+  element.style.visibility = "visible";
   element.classList.add("expand");
   element.style.display = displayType;
 }

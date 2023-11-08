@@ -32,14 +32,13 @@ body {
   font-family: futura-pt, sans-serif;
 }
 #loading-container {
-  /* position: absolute; */
+  position: absolute;
   opacity: 0.8;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column-reverse;
   height: 50%;
-  animation: spin 2.3s ease-in-out infinite;
 }
 #toad-svg {
   fill: var(--prColor);
@@ -49,7 +48,8 @@ body {
 }
 
 #floatBoxContainer {
-  display: none;
+  visibility: hidden;
+  display: flex;
   aspect-ratio: 5/7;
   height: auto;
   width: 70vw;
@@ -160,7 +160,7 @@ body {
 }
 
 #all-btn-holder {
-  display: none;
+  visibility: hidden;
   transform-origin: bottom;
 }
 #web-btn-holder {

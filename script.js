@@ -1,5 +1,6 @@
 let bottleImg = createCurserImg("./assets/imgs/bottle-trans.png");
 let bookImg = createCurserImg("./assets/imgs/book.png");
+
 function createCurserImg(asset) {
   let img = document.createElement("img");
   img.src = asset;
@@ -9,43 +10,6 @@ function createCurserImg(asset) {
 let toadImg = document.getElementById("toadImg");
 function isTouchDevice() {
   return window.matchMedia("(any-hover: none)").matches;
-}
-
-//FUTURE LOADING
-
-const loadImg = (img) =>
-  new Promise((resolve) => {
-    img.onload = () => {
-      resolve({});
-    };
-  });
-
-const googleFontsPromise = document.fonts.ready.then(function () {
-  if (!document.fonts.check("12px Material-Icons")) {
-    return Error;
-  }
-});
-const delayPromise = new Promise((resolve) => setTimeout(resolve, 3000));
-Promise.all([
-  googleFontsPromise,
-  delayPromise,
-  toadImg.complete || loadImg(toadImg),
-]).then(() => {
-  document.getElementById("loading-container").style.display = "none";
-  expandAndDisplay(document.getElementById("floatBoxContainer"), "flex");
-  expandAndDisplay(document.getElementById("all-btn-holder"), "inline");
-  expandAndDisplay(document.getElementById("health-display"), "inline");
-});
-
-function shrinkAndDlete(element) {
-  element.classList.add("shrink");
-  setTimeout(() => {
-    element.remove();
-  }, 500);
-}
-function expandAndDisplay(element, displayType) {
-  element.classList.add("expand");
-  element.style.display = displayType;
 }
 
 class CursorImg {
@@ -90,63 +54,69 @@ class Toad {
     this._animating;
     this.animation;
     this.interval;
-    this.restingImg = "./assets/imgs/toad-init-v2.png";
-    this.happyOne = "./assets/imgs/emotes/toad-init-happy.png";
-    this.happyTwo = "./assets/imgs/emotes/toad-init-happy-two.png";
+    this.gatherToadImgs();
   }
-  resetAnimation() {}
-  feedAnimation() {
-    this.resetAnimation();
+  gatherToadImgs() {
+    this.imgs = Array.from(document.getElementsByClassName("toadImg"));
+    this.imgs.forEach((img) => console.log(img.id));
+    this.resetImgs();
+    this.displayImg("toadImgResting");
   }
-  educateAnimation() {
-    this.resetAnimation();
+  resetImgs() {
+    this.imgs.forEach((img) => {
+      img.style.display = "none";
+    });
   }
-  animateToad(img1, img2) {
-    clearTimeout(this.interval);
-    console.log("animating toad");
-    this._toadImg.src = img1;
-    let boo = true;
-    let amount = 0;
-    this.interval = setInterval(() => {
-      if (amount == 2) {
-        this._toadImg.src = this.restingImg;
-        clearTimeout(this.interval);
-        return;
+  displayImg(id) {
+    this.imgs.forEach((img) => {
+      if (img.id == id) {
+        img.style.display = "inline";
       }
-      amount++;
-      if (boo) {
-        console.log(boo);
-        console.log("2");
-        boo = false;
-        this._toadImg.src = img2;
-      } else {
-        console.log("1");
-        console.log(boo);
-        boo = true;
-        this._toadImg.src = img1;
-      }
-    }, 740);
+    });
   }
+
+  // animateToad(img1, img2) {
+  //   clearTimeout(this.interval);
+  //   console.log("animating toad");
+  //   this._toadImg.src = img1;
+  //   let boo = true;
+  //   let amount = 0;
+  //   this.interval = setInterval(() => {
+  //     if (amount == 2) {
+  //       this._toadImg.src = this.restingImg;
+  //       clearTimeout(this.interval);
+  //       return;
+  //     }
+  //     amount++;
+  //     if (boo) {
+  //       boo = false;
+  //       this._toadImg.src = img2;
+  //     } else {
+  //       boo = true;
+  //       this._toadImg.src = img1;
+  //     }
+  //   }, 740);
+  // }
 
   interact(action) {
     switch (action) {
       case "health":
-        this.animateToad(
-          "./assets/imgs/emotes/toad-init-happy.png",
-          "./assets/imgs/emotes/toad-init-happy-two.png"
-        );
+        // this.animateToad(
+        //   "./assets/imgs/emotes/toad-init-happy.png",
+        //   "./assets/imgs/emotes/toad-init-happy-two.png"
+        // );
         break;
       case "education":
-        this.animateToad(
-          "./assets/imgs/emotes/toad-init-educate.png",
-          "./assets/imgs/emotes/toad-init-educate2.png"
-        );
+        // this.animateToad(
+        //   "./assets/imgs/emotes/toad-init-educate.png",
+        //   "./assets/imgs/emotes/toad-init-educate2.png"
+        // );
         break;
       default:
-        this.animateToad(
-          "./assets/imgs/emotes/toad-hover-angry-one.png",
-          "./assets/imgs/emotes/toad-init-angry-two.png"
-        );
+        // this.animateToad(
+        //   "./assets/imgs/emotes/toad-hover-angry-one.png",
+        //   "./assets/imgs/emotes/toad-init-angry-two.png"
+        // );
         break;
     }
   }
@@ -166,6 +136,9 @@ class ToadGame {
     };
     this.healthDisplay = new HealthDisplay(this._toadState);
     this.updateToadState();
+  }
+  loadGame() {
+    this.healthDisplay.updateDisplay();
   }
   addObserver(observer) {
     this.actionObservers.push(observer);
@@ -188,7 +161,6 @@ class ToadGame {
         this.updateAction("");
       }
     }
-    console.log("helloooo");
     this.toad.interact(this._action);
     this.updateToadState(this._action);
     this.updateAction("");
@@ -216,9 +188,7 @@ class HealthDisplay {
     this._state = toadState;
     this.fullSize = !isTouchDevice();
     this.initDisplay();
-    this.interval = setInterval(() => {
-      this.updateDisplay();
-    }, 3000);
+    // this.updateDisplay();
   }
   initDisplay() {
     this.display = document.getElementById("health-display");
@@ -247,11 +217,9 @@ class HealthDisplay {
   }
   calculatePercentage(stat) {
     const timeDifferenceMS = Date.now() - stat;
-    // const timeDifferenceSecs = Math.floor(timeDifferenceMS / 1000);
     const timeDifferenceHours = Math.floor(timeDifferenceMS / 3600000);
     if (timeDifferenceHours > 36) return 0;
     return (100 * (36 - timeDifferenceHours)) / 36;
-    // return Math.floor(Math.random() * +100);
   }
   getBarColor(number) {
     if (number > 75) return "green";
@@ -291,13 +259,8 @@ class HealthDisplay {
   }
 }
 
-let localState = localStorage.getItem("toad-state");
-if (localState) localState = JSON.parse(localState);
-let game = new ToadGame(localState);
-let cursorFollower = new CursorImg();
-game.addObserver(cursorFollower);
-
 //GAME PIECES
+
 //web
 let waterBtn = document.getElementById("waterBtn");
 let readBtn = document.getElementById("readBtn");
@@ -321,3 +284,47 @@ mobReadBtn.addEventListener("click", () => {
   game.updateAction("education");
   game.interactWithToad();
 });
+
+//toad pieces
+let toadImgs = Array.from(document.getElementsByClassName("toadImg"));
+
+//FUTURE LOADING
+function imgLoadPromise(img) {
+  return new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+}
+
+const googleFontsPromise = document.fonts.ready.then(function () {
+  if (!document.fonts.check("12px Material-Icons")) {
+    return Error;
+  }
+});
+
+//all promises that wait for game to load
+
+//STARTING GAME
+
+let localState = localStorage.getItem("toad-state");
+if (localState) localState = JSON.parse(localState);
+let game = new ToadGame(localState);
+let cursorFollower = new CursorImg();
+
+game.addObserver(cursorFollower);
+
+Promise.all([
+  googleFontsPromise,
+  // Promise.all(toadImgs.map((img) => imgLoadPromise(img))),
+]).then(() => {
+  document.getElementById("loading-container").style.display = "none";
+  expandAndDisplay(document.getElementById("floatBoxContainer"));
+  expandAndDisplay(document.getElementById("all-btn-holder"));
+  expandAndDisplay(document.getElementById("health-display"));
+  game.loadGame();
+});
+
+function expandAndDisplay(element) {
+  element.style.visibility = "visible";
+  element.classList.add("expand");
+}

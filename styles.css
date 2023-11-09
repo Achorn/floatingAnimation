@@ -18,7 +18,6 @@
 }
 body {
   background: var(--bgColor);
-
   margin: 0;
   text-align: center;
   color: var(--prColor);
@@ -32,7 +31,7 @@ body {
   font-family: futura-pt, sans-serif;
 }
 #loading-container {
-  /* position: absolute; */
+  position: absolute;
   opacity: 0.8;
   display: flex;
   align-items: center;
@@ -49,7 +48,8 @@ body {
 }
 
 #floatBoxContainer {
-  display: none;
+  visibility: hidden;
+  display: flex;
   aspect-ratio: 5/7;
   height: auto;
   width: 70vw;
@@ -96,16 +96,12 @@ body {
     transform: translateY(-10%);
   }
 }
-#toadImg {
+.toadImg {
+  display: none;
   width: auto;
   height: 100%;
   /* -webkit-filter: drop-shadow(5px 5px #222); */
   /* filter: drop-shadow(100px 10px 10px rgba(42, 25, 51, 0.173)); */
-}
-#toadImgHover {
-  display: none;
-  width: auto;
-  height: 100%;
 }
 
 #toadDivWrapper {
@@ -165,7 +161,8 @@ body {
 }
 
 #all-btn-holder {
-  display: none;
+  visibility: hidden;
+
   transform-origin: bottom;
 }
 #web-btn-holder {
@@ -208,7 +205,8 @@ body {
 }
 
 #health-display {
-  display: none;
+  /* display: none */
+  visibility: hidden;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   position: absolute;
@@ -300,7 +298,7 @@ body {
 }
 
 .expand {
-  animation: expandAnimate 1s cubic-bezier(0, 0.84, 0.36, 1.03);
+  animation: expandAnimate 1.5s cubic-bezier(0, 0.84, 0.36, 1.03);
 }
 @keyframes expandAnimate {
   0% {

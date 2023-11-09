@@ -162,6 +162,7 @@ body {
 
 #all-btn-holder {
   visibility: hidden;
+
   transform-origin: bottom;
 }
 #web-btn-holder {

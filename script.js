@@ -137,6 +137,9 @@ class ToadGame {
     this.healthDisplay = new HealthDisplay(this._toadState);
     this.updateToadState();
   }
+  loadGame() {
+    this.healthDisplay.updateDisplay();
+  }
   addObserver(observer) {
     this.actionObservers.push(observer);
   }
@@ -185,9 +188,7 @@ class HealthDisplay {
     this._state = toadState;
     this.fullSize = !isTouchDevice();
     this.initDisplay();
-    this.interval = setInterval(() => {
-      this.updateDisplay();
-    }, 3000);
+    // this.updateDisplay();
   }
   initDisplay() {
     this.display = document.getElementById("health-display");
@@ -302,20 +303,6 @@ const googleFontsPromise = document.fonts.ready.then(function () {
 });
 
 //all promises that wait for game to load
-Promise.all([
-  googleFontsPromise,
-  // Promise.all(toadImgs.map((img) => imgLoadPromise(img))),
-]).then(() => {
-  document.getElementById("loading-container").style.display = "none";
-  expandAndDisplay(document.getElementById("floatBoxContainer"));
-  expandAndDisplay(document.getElementById("all-btn-holder"));
-  expandAndDisplay(document.getElementById("health-display"));
-});
-
-function expandAndDisplay(element) {
-  element.style.visibility = "visible";
-  element.classList.add("expand");
-}
 
 //STARTING GAME
 
@@ -325,3 +312,19 @@ let game = new ToadGame(localState);
 let cursorFollower = new CursorImg();
 
 game.addObserver(cursorFollower);
+
+Promise.all([
+  googleFontsPromise,
+  // Promise.all(toadImgs.map((img) => imgLoadPromise(img))),
+]).then(() => {
+  document.getElementById("loading-container").style.display = "none";
+  expandAndDisplay(document.getElementById("floatBoxContainer"));
+  expandAndDisplay(document.getElementById("all-btn-holder"));
+  expandAndDisplay(document.getElementById("health-display"));
+  game.loadGame();
+});
+
+function expandAndDisplay(element) {
+  element.style.visibility = "visible";
+  element.classList.add("expand");
+}

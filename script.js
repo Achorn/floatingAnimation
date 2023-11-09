@@ -54,52 +54,69 @@ class Toad {
     this._animating;
     this.animation;
     this.interval;
-    this.restingImg = "./assets/imgs/toad-init-v2.png";
-    this.happyOne = "./assets/imgs/emotes/toad-init-happy.png";
-    this.happyTwo = "./assets/imgs/emotes/toad-init-happy-two.png";
+    this.gatherToadImgs();
   }
-  animateToad(img1, img2) {
-    clearTimeout(this.interval);
-    console.log("animating toad");
-    this._toadImg.src = img1;
-    let boo = true;
-    let amount = 0;
-    this.interval = setInterval(() => {
-      if (amount == 2) {
-        this._toadImg.src = this.restingImg;
-        clearTimeout(this.interval);
-        return;
-      }
-      amount++;
-      if (boo) {
-        boo = false;
-        this._toadImg.src = img2;
-      } else {
-        boo = true;
-        this._toadImg.src = img1;
-      }
-    }, 740);
+  gatherToadImgs() {
+    this.imgs = Array.from(document.getElementsByClassName("toadImg"));
+    this.imgs.forEach((img) => console.log(img.id));
+    this.resetImgs();
+    this.displayImg("toadImgResting");
   }
+  resetImgs() {
+    this.imgs.forEach((img) => {
+      img.style.display = "none";
+    });
+  }
+  displayImg(id) {
+    this.imgs.forEach((img) => {
+      if (img.id == id) {
+        img.style.display = "inline";
+      }
+    });
+  }
+
+  // animateToad(img1, img2) {
+  //   clearTimeout(this.interval);
+  //   console.log("animating toad");
+  //   this._toadImg.src = img1;
+  //   let boo = true;
+  //   let amount = 0;
+  //   this.interval = setInterval(() => {
+  //     if (amount == 2) {
+  //       this._toadImg.src = this.restingImg;
+  //       clearTimeout(this.interval);
+  //       return;
+  //     }
+  //     amount++;
+  //     if (boo) {
+  //       boo = false;
+  //       this._toadImg.src = img2;
+  //     } else {
+  //       boo = true;
+  //       this._toadImg.src = img1;
+  //     }
+  //   }, 740);
+  // }
 
   interact(action) {
     switch (action) {
       case "health":
-        this.animateToad(
-          "./assets/imgs/emotes/toad-init-happy.png",
-          "./assets/imgs/emotes/toad-init-happy-two.png"
-        );
+        // this.animateToad(
+        //   "./assets/imgs/emotes/toad-init-happy.png",
+        //   "./assets/imgs/emotes/toad-init-happy-two.png"
+        // );
         break;
       case "education":
-        this.animateToad(
-          "./assets/imgs/emotes/toad-init-educate.png",
-          "./assets/imgs/emotes/toad-init-educate2.png"
-        );
+        // this.animateToad(
+        //   "./assets/imgs/emotes/toad-init-educate.png",
+        //   "./assets/imgs/emotes/toad-init-educate2.png"
+        // );
         break;
       default:
-        this.animateToad(
-          "./assets/imgs/emotes/toad-hover-angry-one.png",
-          "./assets/imgs/emotes/toad-init-angry-two.png"
-        );
+        // this.animateToad(
+        //   "./assets/imgs/emotes/toad-hover-angry-one.png",
+        //   "./assets/imgs/emotes/toad-init-angry-two.png"
+        // );
         break;
     }
   }
@@ -141,7 +158,6 @@ class ToadGame {
         this.updateAction("");
       }
     }
-    console.log("helloooo");
     this.toad.interact(this._action);
     this.updateToadState(this._action);
     this.updateAction("");
@@ -270,8 +286,6 @@ mobReadBtn.addEventListener("click", () => {
 
 //toad pieces
 let toadImgs = Array.from(document.getElementsByClassName("toadImg"));
-console.log(toadImgs);
-toadImgs.map((img) => console.log(img));
 
 //FUTURE LOADING
 function imgLoadPromise(img) {
@@ -280,21 +294,18 @@ function imgLoadPromise(img) {
     img.onerror = reject;
   });
 }
-function loadAllImgs(imgs) {
-  let promiseArray = imgs.map((img) => imgLoadPromise(img));
-  console.log(promiseArray);
-  return new Promise.all(promiseArray);
-}
 
 const googleFontsPromise = document.fonts.ready.then(function () {
   if (!document.fonts.check("12px Material-Icons")) {
     return Error;
   }
 });
-const delayPromise = new Promise((resolve) => setTimeout(resolve, 2000));
 
 //all promises that wait for game to load
-Promise.all([googleFontsPromise, delayPromise]).then(() => {
+Promise.all([
+  googleFontsPromise,
+  Promise.all(toadImgs.map((img) => imgLoadPromise(img))),
+]).then(() => {
   document.getElementById("loading-container").style.display = "none";
   expandAndDisplay(document.getElementById("floatBoxContainer"));
   expandAndDisplay(document.getElementById("all-btn-holder"));
@@ -312,7 +323,5 @@ let localState = localStorage.getItem("toad-state");
 if (localState) localState = JSON.parse(localState);
 let game = new ToadGame(localState);
 let cursorFollower = new CursorImg();
-
-let toadPiece = new Toad();
 
 game.addObserver(cursorFollower);

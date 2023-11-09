@@ -91,7 +91,7 @@ class Toad {
         this.animateToad("toadImgHappy");
         break;
       case "education":
-        this.animateToad("toadImgEducation");
+        this.animateToad("toadImgEducate");
         break;
       default:
         this.animateToad("toadImgAngry");
@@ -100,14 +100,18 @@ class Toad {
   }
 }
 
+function subtractHours(date, hours) {
+  date.setHours(date.getHours() - hours);
+  return date;
+}
 class ToadGame {
   constructor(toadState) {
     this._action = "";
     this.toad = new Toad();
     this.actionObservers = [];
     this._toadState = toadState || {
-      health: Date.now(),
-      education: Date.now(),
+      health: subtractHours(new Date(Date.now()), 20),
+      education: subtractHours(new Date(Date.now()), 20),
       age: Date.now(),
       education_points: 0,
       water_points: 0,

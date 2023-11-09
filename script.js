@@ -296,15 +296,14 @@ const delayPromise = new Promise((resolve) => setTimeout(resolve, 2000));
 //all promises that wait for game to load
 Promise.all([googleFontsPromise, delayPromise]).then(() => {
   document.getElementById("loading-container").style.display = "none";
-  expandAndDisplay(document.getElementById("floatBoxContainer"), "flex");
-  expandAndDisplay(document.getElementById("all-btn-holder"), "inline");
-  expandAndDisplay(document.getElementById("health-display"), "inline");
+  expandAndDisplay(document.getElementById("floatBoxContainer"));
+  expandAndDisplay(document.getElementById("all-btn-holder"));
+  expandAndDisplay(document.getElementById("health-display"));
 });
 
-function expandAndDisplay(element, displayType) {
+function expandAndDisplay(element) {
   element.style.visibility = "visible";
   element.classList.add("expand");
-  element.style.display = displayType;
 }
 
 //STARTING GAME

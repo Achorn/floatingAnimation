@@ -304,7 +304,7 @@ const googleFontsPromise = document.fonts.ready.then(function () {
 //all promises that wait for game to load
 Promise.all([
   googleFontsPromise,
-  Promise.all(toadImgs.map((img) => imgLoadPromise(img))),
+  // Promise.all(toadImgs.map((img) => imgLoadPromise(img))),
 ]).then(() => {
   document.getElementById("loading-container").style.display = "none";
   expandAndDisplay(document.getElementById("floatBoxContainer"));

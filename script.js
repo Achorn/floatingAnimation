@@ -55,12 +55,12 @@ class Toad {
     this.animation;
     this.interval;
     this.gatherToadImgs();
+    this.displayImg("toadImgResting");
   }
   gatherToadImgs() {
     this.imgs = Array.from(document.getElementsByClassName("toadImg"));
     this.imgs.forEach((img) => console.log(img.id));
     this.resetImgs();
-    this.displayImg("toadImgResting");
   }
   resetImgs() {
     this.imgs.forEach((img) => {
@@ -75,48 +75,26 @@ class Toad {
     });
   }
 
-  // animateToad(img1, img2) {
-  //   clearTimeout(this.interval);
-  //   console.log("animating toad");
-  //   this._toadImg.src = img1;
-  //   let boo = true;
-  //   let amount = 0;
-  //   this.interval = setInterval(() => {
-  //     if (amount == 2) {
-  //       this._toadImg.src = this.restingImg;
-  //       clearTimeout(this.interval);
-  //       return;
-  //     }
-  //     amount++;
-  //     if (boo) {
-  //       boo = false;
-  //       this._toadImg.src = img2;
-  //     } else {
-  //       boo = true;
-  //       this._toadImg.src = img1;
-  //     }
-  //   }, 740);
-  // }
+  animateToad(img) {
+    this.resetImgs();
+    this.displayImg(img);
+    clearTimeout(this.interval);
+    this.interval = setInterval(() => {
+      this.resetImgs();
+      this.displayImg("toadImgResting");
+    }, 1100);
+  }
 
   interact(action) {
     switch (action) {
       case "health":
-        // this.animateToad(
-        //   "./assets/imgs/emotes/toad-init-happy.png",
-        //   "./assets/imgs/emotes/toad-init-happy-two.png"
-        // );
+        this.animateToad("toadImgHappy");
         break;
       case "education":
-        // this.animateToad(
-        //   "./assets/imgs/emotes/toad-init-educate.png",
-        //   "./assets/imgs/emotes/toad-init-educate2.png"
-        // );
+        this.animateToad("toadImgEducation");
         break;
       default:
-        // this.animateToad(
-        //   "./assets/imgs/emotes/toad-hover-angry-one.png",
-        //   "./assets/imgs/emotes/toad-init-angry-two.png"
-        // );
+        this.animateToad("toadImgAngry");
         break;
     }
   }

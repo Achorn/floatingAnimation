@@ -298,7 +298,7 @@ body {
 }
 
 .expand {
-  animation: expandAnimate 1.5s cubic-bezier(0, 0.84, 0.36, 1.03);
+  animation: expandAnimate 1.3s cubic-bezier(0, 0.84, 0.36, 1.03);
 }
 @keyframes expandAnimate {
   0% {
